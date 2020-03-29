@@ -54,6 +54,8 @@ function keyNumberToId(keyNumber, location) {
   return keyCodes[keyN];
 }
 
+const textArea = document.querySelector('textarea');
+textArea.focus();
 function keyOff(keyId) {
   if (keys[42].classList.contains('active') && keys[55].classList.contains('active')) {
     keys = localStorage.getItem('layout') === 'eng' ? layoutToShiftRus(keys) : layoutToShiftEng(keys);
@@ -108,12 +110,15 @@ function keyOn(keyId) {
     shiftPressed = false;
     document.querySelector('textarea').value += ' сложна ';
   }
-  const textArea = document.querySelector('textarea');
   if (keyId === 13) {
-    textArea.setRangeText('', textArea.selectionStart - 1, textArea.selectionEnd, 'end');
+    if (textArea.value.length > 0) {
+      textArea.setRangeText('', textArea.selectionStart - 1, textArea.selectionEnd, 'end');
+    }
   }
   if (keyId === 27) {
-    textArea.setRangeText('', textArea.selectionStart, textArea.selectionEnd + 1, 'end');
+    if (textArea.value.length > 0) {
+      textArea.setRangeText('', textArea.selectionStart, textArea.selectionEnd + 1, 'end');
+    }
   }
 
   const str = keys[keyId].innerText;
@@ -153,7 +158,9 @@ document.addEventListener('keyup', (evt) => {
 keys.forEach((item, index) => {
   item.addEventListener('click', () => {
     if (index !== 54 && index !== 42) {
+      textArea.focus();
       keyOn(index);
+      textArea.focus();
       setTimeout(() => {
         keyOff(index);
       }, 100);
