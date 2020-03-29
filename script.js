@@ -122,10 +122,7 @@ function keyOn(keyId) {
 
 document.addEventListener('keydown', (evt) => {
   evt.preventDefault();
-  console.log(evt.keyCode);
   const keyId = keyNumberToId(evt.keyCode, evt.location);
-  console.log(keyId);
-  console.log('--------');
   keyOn(keyId);
 });
 
