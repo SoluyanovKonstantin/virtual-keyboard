@@ -38,6 +38,11 @@ textarea {
   align-items: center;
 }
 
+.key:hover {
+  background-color: seagreen;
+  cursor: pointer;
+}
+
 .ctrl {
   width: 60px;
 }
@@ -87,7 +92,7 @@ textarea {
   width: 40px;
 }
 
-.active {
+.key.active {
   animation: toBorder 0.1s;
   border-radius: 15px;
   background-color: rgba(0, 0, 0, 1);

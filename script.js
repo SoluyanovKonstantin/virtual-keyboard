@@ -54,7 +54,7 @@ function keyNumberToId(keyNumber, location) {
 }
 
 function keyOff(keyId) {
-  if (keys[42].classList.contains('active') && keys[57].classList.contains('active')) {
+  if (keys[42].classList.contains('active') && keys[55].classList.contains('active')) {
     keys = localStorage.getItem('layout') === 'eng' ? layoutToShiftRus(keys) : layoutToShiftEng(keys);
   }
   if ((keyId === 42 || keyId === 54) && shiftPressed) {
@@ -122,8 +122,10 @@ function keyOn(keyId) {
 
 document.addEventListener('keydown', (evt) => {
   evt.preventDefault();
+  console.log(evt.keyCode);
   const keyId = keyNumberToId(evt.keyCode, evt.location);
   console.log(keyId);
+  console.log('--------');
   keyOn(keyId);
 });
 
