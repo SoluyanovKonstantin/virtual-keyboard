@@ -108,28 +108,33 @@ function keyOn(keyId) {
     shiftPressed = false;
     document.querySelector('textarea').value += ' сложна ';
   }
-
+  const textArea = document.querySelector('textarea');
   if (keyId === 13) {
-    const str = document.querySelector('textarea').value;
-    document.querySelector('textarea').value = str.slice(0, str.length - 1);
+    textArea.setRangeText('', textArea.selectionStart - 1, textArea.selectionEnd, 'end');
   }
-
   if (keyId === 27) {
-    document.querySelector('textarea').value = '';
+    textArea.setRangeText('', textArea.selectionStart, textArea.selectionEnd + 1, 'end');
   }
 
   const str = keys[keyId].innerText;
-  if (str.length === 1) {
-    document.querySelector('textArea').value += str;
+  if (str.length === 1 && keyId !== 61 && keyId !== 63) {
+    textArea.setRangeText(str, textArea.selectionStart, textArea.selectionEnd, 'end');
+  }
+  if (keyId === 61) {
+    textArea.selectionStart -= 1;
+    textArea.selectionEnd -= 1;
+  }
+  if (keyId === 63) {
+    textArea.selectionStart += 1;
   }
   if (keyId === 58) {
-    document.querySelector('textArea').value += ' ';
+    textArea.setRangeText(' ', textArea.selectionStart, textArea.selectionEnd, 'end');
   }
   if (keyId === 14) {
-    document.querySelector('textArea').value += '    ';
+    textArea.setRangeText('    ', textArea.selectionStart, textArea.selectionEnd, 'end');
   }
   if (keyId === 41) {
-    document.querySelector('textarea').value += '\n';
+    textArea.setRangeText('\n', textArea.selectionStart, textArea.selectionEnd, 'end');
   }
 }
 
