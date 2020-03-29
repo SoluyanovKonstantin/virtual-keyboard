@@ -1,13 +1,17 @@
 @keyframes toBorder {
   0% {
     border-radius: 0px;
+    background-color: blue;
   }
 
   50% {
+    border-radius: 15px;
+    background-color: rgb(0, 0, 134);
   }
 
   100% {
-    border-radius: 15px;
+    border-radius: 0px;
+    background-color: white;
   }
 }
 
@@ -92,8 +96,7 @@ textarea {
   width: 40px;
 }
 
-.key.active {
-  animation: toBorder 0.1s;
+.active {
   border-radius: 15px;
   background-color: rgba(0, 0, 0, 1);
   font-size: 0px;

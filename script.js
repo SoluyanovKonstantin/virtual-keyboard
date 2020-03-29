@@ -68,10 +68,14 @@ function keyOff(keyId) {
   }
 
   keys[keyId].classList.remove('active');
+  setTimeout(() => {
+    keys[keyId].style.animation = '';
+  }, 300);
 }
 
 function keyOn(keyId) {
   keys[keyId].classList.add('active');
+  keys[keyId].style.animation = 'toBorder 0.3s';
   if (keyId === 28) {
     keys = toUppercase(keys);
   }
@@ -114,6 +118,9 @@ function keyOn(keyId) {
   }
   if (keyId === 58) {
     document.querySelector('textArea').value += ' ';
+  }
+  if (keyId === 14) {
+    document.querySelector('textArea').value += '    ';
   }
   if (keyId === 41) {
     document.querySelector('textarea').value += '\n';
