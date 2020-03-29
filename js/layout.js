@@ -272,6 +272,7 @@ function layoutToShiftEng(k) {
 
 function toUppercase(k) {
   const keys = Object.values(k);
+  keys[0].classList.toggle('uppercase');
   for (let i = 15; i < 27; i += 1) {
     keys[i].classList.toggle('uppercase');
   }
