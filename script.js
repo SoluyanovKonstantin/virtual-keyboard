@@ -1,6 +1,5 @@
 // eslint-disable-next-line import/extensions
 import { keyCodes } from './js/keyCodes.js';
-// eslint-disable-next-line import/extensions
 import {
   layoutToRus,
   layoutToEng,
@@ -115,6 +114,9 @@ function keyOn(keyId) {
   }
   if (keyId === 58) {
     document.querySelector('textArea').value += ' ';
+  }
+  if (keyId === 41) {
+    document.querySelector('textarea').value += '\n';
   }
 }
 
