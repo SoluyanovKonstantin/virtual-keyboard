@@ -81,6 +81,7 @@ function keyOff(keyId) {
 }
 
 function keyOn(keyId) {
+  textArea.focus();
   keys[keyId].classList.add('active');
   keys[keyId].style.animation = 'toBorder 0.3s';
   if (keyId === 28 && capslockUnpressed) {
@@ -158,9 +159,7 @@ document.addEventListener('keyup', (evt) => {
 keys.forEach((item, index) => {
   item.addEventListener('click', () => {
     if (index !== 54 && index !== 42) {
-      textArea.focus();
       keyOn(index);
-      textArea.focus();
       setTimeout(() => {
         keyOff(index);
       }, 100);
