@@ -59,6 +59,7 @@ function layoutToRus(k) {
   keys[62].innerHTML = '&darr;';
   keys[63].innerHTML = '&rarr;';
 
+  localStorage.setItem('layout', 'rus');
   return keys;
 }
 
@@ -123,12 +124,13 @@ function layoutToEng(k) {
   keys[62].innerHTML = '&darr;';
   keys[63].innerHTML = '&rarr;';
 
+  localStorage.setItem('layout', 'eng');
   return keys;
 }
 
 function layoutToShiftRus(k) {
   const keys = Object.values(k);
-  keys[0].innerText = 'ё';
+  keys[0].innerText = 'Ё';
   keys[1].innerText = '!';
   keys[2].innerText = '"';
   keys[3].innerText = '№';
@@ -193,6 +195,7 @@ function layoutToShiftRus(k) {
   keys[62].innerHTML = '&darr;';
   keys[63].innerHTML = '&rarr;';
 
+  localStorage.setItem('layout', 'rus');
   return keys;
 }
 
@@ -263,6 +266,22 @@ function layoutToShiftEng(k) {
   keys[62].innerHTML = '&darr;';
   keys[63].innerHTML = '&rarr;';
 
+  localStorage.setItem('layout', 'eng');
+  return keys;
+}
+
+function toUppercase(k) {
+  const keys = Object.values(k);
+  for (let i = 15; i < 27; i += 1) {
+    keys[i].classList.toggle('uppercase');
+  }
+  for (let i = 29; i < 40; i += 1) {
+    keys[i].classList.toggle('uppercase');
+  }
+  for (let i = 43; i < 52; i += 1) {
+    keys[i].classList.toggle('uppercase');
+  }
+
   return keys;
 }
 
@@ -271,4 +290,5 @@ export {
   layoutToEng,
   layoutToShiftRus,
   layoutToShiftEng,
+  toUppercase,
 };

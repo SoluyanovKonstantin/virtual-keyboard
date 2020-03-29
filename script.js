@@ -1,7 +1,14 @@
 // eslint-disable-next-line import/extensions
-import keyCodes from './js/keyCodes.js';
+import { keyCodes } from './js/keyCodes.js';
 // eslint-disable-next-line import/extensions
-import { layoutToRus, layoutToEng } from './js/layout.js';
+import {
+  layoutToRus,
+  layoutToEng,
+  toUppercase,
+  layoutToShiftEng,
+  layoutToShiftRus,
+// eslint-disable-next-line import/extensions
+} from './js/layout.js';
 
 let shiftPressed = false;
 const ul = document.createElement('ul');
@@ -16,83 +23,47 @@ for (let i = 0; i < 64; i += 1) {
 }
 
 let keys = document.querySelectorAll('.key');
-keys = layoutToRus(keys);
+if (localStorage.getItem('layout') === 'rus' || localStorage.getItem('layout') === undefined) {
+  keys = layoutToRus(keys);
+} else {
+  keys = layoutToEng(keys);
+}
 
-keys[58].classList.add('space');
-keys[55].classList.add('ctrl');
-keys[60].classList.add('ctrl');
-keys[59].classList.add('alt');
-keys[57].classList.add('alt');
-keys[42].classList.add('shiftLeft');
-keys[54].classList.add('shift');
-keys[14].classList.add('tab');
 keys[13].classList.add('backspace');
+keys[14].classList.add('tab');
+keys[27].classList.add('del');
 keys[28].classList.add('caps_lock');
 keys[41].classList.add('enter');
-keys[27].classList.add('del');
+keys[42].classList.add('shiftLeft');
+keys[54].classList.add('shift');
+keys[55].classList.add('ctrl');
 keys[56].classList.add('win');
+keys[57].classList.add('alt');
+keys[58].classList.add('space');
+keys[59].classList.add('alt');
+keys[60].classList.add('ctrl');
 keys[61].classList.add('keyLeft');
 keys[63].classList.add('keyRight');
 
 function keyNumberToId(keyNumber, location) {
   let keyN = keyNumber;
   if (keyNumber === 16 || keyNumber === 17 || keyNumber === 18) {
+    //  Нужно для возможности различить дублирующиеся клавиши;
     keyN = Number(String(keyNumber) + String(location));
   }
   return keyCodes[keyN];
 }
 
-function keyOn(keyCode, location) {
-  const keyId = keyNumberToId(keyCode, location);
-  keys[keyId].classList.add('active');
-  if (keyId === 28) {
-    for (let i = 15; i < 27; i += 1) {
-      keys[i].classList.toggle('uppercase');
-    }
-    for (let i = 29; i < 40; i += 1) {
-      keys[i].classList.toggle('uppercase');
-    }
-    for (let i = 43; i < 52; i += 1) {
-      keys[i].classList.toggle('uppercase');
-    }
-  }
-
-  if ((keyId === 42 || keyId === 54) && !shiftPressed) {
-    for (let i = 15; i < 27; i += 1) {
-      keys[i].classList.toggle('uppercase');
-    }
-    for (let i = 29; i < 40; i += 1) {
-      keys[i].classList.toggle('uppercase');
-    }
-    for (let i = 43; i < 52; i += 1) {
-      keys[i].classList.toggle('uppercase');
-    }
-    shiftPressed = true;
-  }
-
-  const str = keys[keyNumberToId(keyCode, location)].innerText;
-  if (str.length === 1) {
-    document.querySelector('textArea').value += str;
-  }
-  if (keyCode === 32) {
-    document.querySelector('textArea').value += ' ';
-  }
-}
-
-function keyOff(keyCode, location) {
-  const keyId = keyNumberToId(keyCode, location);
+function keyOff(keyId) {
   if (keys[42].classList.contains('active') && keys[57].classList.contains('active')) {
-    keys = keys[0].innerText === 'ё' ? layoutToEng(keys) : layoutToRus(keys);
+    keys = localStorage.getItem('layout') === 'eng' ? layoutToShiftRus(keys) : layoutToShiftEng(keys);
   }
   if ((keyId === 42 || keyId === 54) && shiftPressed) {
-    for (let i = 15; i < 27; i += 1) {
-      keys[i].classList.toggle('uppercase');
-    }
-    for (let i = 29; i < 40; i += 1) {
-      keys[i].classList.toggle('uppercase');
-    }
-    for (let i = 43; i < 52; i += 1) {
-      keys[i].classList.toggle('uppercase');
+    keys = toUppercase(keys);
+    if (localStorage.getItem('layout') === 'eng') {
+      layoutToEng(keys);
+    } else {
+      layoutToRus(keys);
     }
     shiftPressed = false;
   }
@@ -100,12 +71,77 @@ function keyOff(keyCode, location) {
   keys[keyId].classList.remove('active');
 }
 
+function keyOn(keyId) {
+  keys[keyId].classList.add('active');
+  if (keyId === 28) {
+    keys = toUppercase(keys);
+  }
+
+  if ((keyId === 42 || keyId === 54) && !shiftPressed) {
+    keys = toUppercase(keys);
+    if (localStorage.getItem('layout') === 'eng') {
+      layoutToShiftEng(keys);
+    } else {
+      layoutToShiftRus(keys);
+    }
+    shiftPressed = true;
+  }
+
+  if (keys[42].classList.contains('active') && keys[54].classList.contains('active')) {
+    keys[42].classList.remove('active');
+    keys[54].classList.remove('active');
+    keys = toUppercase(keys);
+    if (localStorage.getItem('layout') === 'eng') {
+      layoutToEng(keys);
+    } else {
+      layoutToRus(keys);
+    }
+    shiftPressed = false;
+    document.querySelector('textarea').value += ' сложна ';
+  }
+
+  if (keyId === 13) {
+    const str = document.querySelector('textarea').value;
+    document.querySelector('textarea').value = str.slice(0, str.length - 1);
+  }
+
+  if (keyId === 27) {
+    document.querySelector('textarea').value = '';
+  }
+
+  const str = keys[keyId].innerText;
+  if (str.length === 1) {
+    document.querySelector('textArea').value += str;
+  }
+  if (keyId === 58) {
+    document.querySelector('textArea').value += ' ';
+  }
+}
+
 document.addEventListener('keydown', (evt) => {
   evt.preventDefault();
-  keyOn(evt.keyCode, evt.location);
+  const keyId = keyNumberToId(evt.keyCode, evt.location);
+  console.log(keyId);
+  keyOn(keyId);
 });
 
 document.addEventListener('keyup', (evt) => {
   evt.preventDefault();
-  keyOff(evt.keyCode, evt.location);
+  const keyId = keyNumberToId(evt.keyCode, evt.location);
+  keyOff(keyId);
+});
+
+keys.forEach((item, index) => {
+  item.addEventListener('click', () => {
+    if (index !== 54 && index !== 42) {
+      keyOn(index);
+      setTimeout(() => {
+        keyOff(index);
+      }, 100);
+    } else if (!item.classList.contains('active')) {
+      keyOn(index);
+    } else {
+      keyOff(index);
+    }
+  });
 });

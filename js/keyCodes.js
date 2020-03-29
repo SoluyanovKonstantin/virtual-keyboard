@@ -65,4 +65,6 @@ const keyCodes = {
   39: 63,
 };
 
-export default keyCodes;
+const codes = Object.keys(keyCodes);
+
+export { keyCodes, codes };
