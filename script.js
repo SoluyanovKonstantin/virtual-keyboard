@@ -9,6 +9,7 @@ import {
 // eslint-disable-next-line import/extensions
 } from './js/layout.js';
 
+let capslockUnpressed = true;
 let shiftPressed = false;
 const ul = document.createElement('ul');
 const textarea = document.createElement('textArea');
@@ -67,6 +68,10 @@ function keyOff(keyId) {
     shiftPressed = false;
   }
 
+  if (keyId === 28) {
+    capslockUnpressed = true;
+  }
+
   keys[keyId].classList.remove('active');
   setTimeout(() => {
     keys[keyId].style.animation = '';
@@ -76,8 +81,9 @@ function keyOff(keyId) {
 function keyOn(keyId) {
   keys[keyId].classList.add('active');
   keys[keyId].style.animation = 'toBorder 0.3s';
-  if (keyId === 28) {
+  if (keyId === 28 && capslockUnpressed) {
     keys = toUppercase(keys);
+    capslockUnpressed = false;
   }
 
   if ((keyId === 42 || keyId === 54) && !shiftPressed) {
