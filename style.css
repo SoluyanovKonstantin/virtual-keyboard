@@ -1,0 +1,78 @@
+textarea {
+  width: 580px;
+  height: 200px;
+}
+
+.keyboard {
+  width: 590px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.key {
+  width: 23px;
+  height: 30px;
+  border: 1px solid black;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.ctrl {
+  width: 60px;
+}
+
+.shift {
+  width: 55px;
+}
+
+.shiftLeft {
+  width: 80px;
+}
+
+.tab {
+  width: 50px;
+}
+
+.backspace {
+  width: 70px;
+}
+
+.caps_lock {
+  width: 74px;
+}
+
+.del {
+  width: 50px;
+}
+
+.enter {
+  width: 70px;
+}
+
+.space {
+  width: 150px;
+}
+
+.alt {
+  width: 30px;
+}
+
+.win {
+  width: 45px;
+}
+
+.keyLeft,
+.keyRight {
+  width: 40px;
+}
+
+.active {
+  background-color: black;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
