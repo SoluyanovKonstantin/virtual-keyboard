@@ -77,7 +77,7 @@ function keyOff(keyId) {
   keys[keyId].classList.remove('active');
   setTimeout(() => {
     keys[keyId].style.animation = '';
-  }, 100);
+  }, 200);
 }
 
 function keyOn(keyId) {
