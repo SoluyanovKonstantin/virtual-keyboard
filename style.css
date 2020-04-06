@@ -53,6 +53,17 @@ textarea {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  position: relative;
+}
+
+.keyboard::after {
+  white-space:pre;
+  position: absolute;
+  content: 'Сделано на windows, \A переключение раскладки на crtl + shift';
+  top: 100%;
+  left: 5px;
+  border: 1px solid black;
+  padding: 5px;
 }
 
 .key {

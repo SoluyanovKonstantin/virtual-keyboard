@@ -82,8 +82,10 @@ function keyOff(keyId) {
 
 function keyOn(keyId) {
   textArea.focus();
-  keys[keyId].classList.add('active');
-  keys[keyId].style.animation = 'toBorder 0.3s';
+  if ((keyId !== 42 && keyId !== 54) || !shiftPressed) {
+    keys[keyId].classList.add('active');
+    keys[keyId].style.animation = 'toBorder 0.3s';
+  }
   if (keyId === 28 && capslockUnpressed) {
     keys = toUppercase(keys);
     capslockUnpressed = false;
