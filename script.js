@@ -105,18 +105,6 @@ function keyOn(keyId) {
     });
   }
 
-  if (keys[42].classList.contains('active') && keys[54].classList.contains('active')) {
-    keys[42].classList.remove('active');
-    keys[54].classList.remove('active');
-    keys = toUppercase(keys);
-    if (localStorage.getItem('layout') === 'eng') {
-      layoutToEng(keys);
-    } else {
-      layoutToRus(keys);
-    }
-    shiftPressed = false;
-    document.querySelector('textarea').value += ' сложна ';
-  }
   if (keyId === 13) {
     if (textArea.value.length > 0) {
       textArea.setRangeText('', textArea.selectionStart - 1, textArea.selectionEnd, 'end');
