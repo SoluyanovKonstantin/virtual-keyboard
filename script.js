@@ -99,6 +99,12 @@ function keyOn(keyId) {
     shiftPressed = true;
   }
 
+  if (keyId === 56) {
+    document.querySelectorAll('.active').forEach((item) => {
+      item.classList.remove('active');
+    });
+  }
+
   if (keys[42].classList.contains('active') && keys[54].classList.contains('active')) {
     keys[42].classList.remove('active');
     keys[54].classList.remove('active');
