@@ -130,7 +130,6 @@ function layoutToEng(k) {
 
 function layoutToShiftRus(k) {
   const keys = Object.values(k);
-  keys[0].innerText = 'Ё';
   keys[1].innerText = '!';
   keys[2].innerText = '"';
   keys[3].innerText = '№';
