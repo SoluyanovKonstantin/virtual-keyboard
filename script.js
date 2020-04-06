@@ -145,15 +145,19 @@ function keyOn(keyId) {
 }
 
 document.addEventListener('keydown', (evt) => {
-  evt.preventDefault();
-  const keyId = keyNumberToId(evt.keyCode, evt.location);
-  keyOn(keyId);
+  if (keyNumberToId(evt.keyCode, evt.location)) {
+    evt.preventDefault();
+    const keyId = keyNumberToId(evt.keyCode, evt.location);
+    keyOn(keyId);
+  }
 });
 
 document.addEventListener('keyup', (evt) => {
-  evt.preventDefault();
-  const keyId = keyNumberToId(evt.keyCode, evt.location);
-  keyOff(keyId);
+  if (keyNumberToId(evt.keyCode, evt.location)) {
+    evt.preventDefault();
+    const keyId = keyNumberToId(evt.keyCode, evt.location);
+    keyOff(keyId);
+  }
 });
 
 keys.forEach((item, index) => {
