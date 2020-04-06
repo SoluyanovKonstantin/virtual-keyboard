@@ -141,7 +141,7 @@ function keyOn(keyId) {
 }
 
 document.addEventListener('keydown', (evt) => {
-  if (keyNumberToId(evt.keyCode, evt.location)) {
+  if (keyNumberToId(evt.keyCode, evt.location) !== undefined) {
     evt.preventDefault();
     const keyId = keyNumberToId(evt.keyCode, evt.location);
     keyOn(keyId);
@@ -149,7 +149,7 @@ document.addEventListener('keydown', (evt) => {
 });
 
 document.addEventListener('keyup', (evt) => {
-  if (keyNumberToId(evt.keyCode, evt.location)) {
+  if (keyNumberToId(evt.keyCode, evt.location) !== undefined) {
     evt.preventDefault();
     const keyId = keyNumberToId(evt.keyCode, evt.location);
     keyOff(keyId);
