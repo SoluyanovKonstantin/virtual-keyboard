@@ -101,12 +101,6 @@ function keyOn(keyId) {
     shiftPressed = true;
   }
 
-  if (keyId === 56) {
-    document.querySelectorAll('.active').forEach((item) => {
-      item.classList.remove('active');
-    });
-  }
-
   if (keyId === 13) {
     if (textArea.value.length > 0) {
       textArea.setRangeText('', textArea.selectionStart - 1, textArea.selectionEnd, 'end');
@@ -139,6 +133,14 @@ function keyOn(keyId) {
     textArea.setRangeText('\n', textArea.selectionStart, textArea.selectionEnd, 'end');
   }
 }
+
+window.addEventListener('blur', () => {
+  document.querySelectorAll('.active').forEach((item) => {
+    const activeKey = item;
+    activeKey.classList.remove('active');
+    activeKey.style.animation = '';
+  });
+});
 
 document.addEventListener('keydown', (evt) => {
   if (keyNumberToId(evt.keyCode, evt.location) !== undefined) {
