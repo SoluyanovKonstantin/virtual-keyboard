@@ -45,7 +45,7 @@ keys[60].classList.add('ctrl');
 keys[61].classList.add('keyLeft');
 keys[63].classList.add('keyRight');
 
-function keyNumberToId(keyNumber, location) {
+function keyCodeToId(keyNumber, location) {
   let keyN = keyNumber;
   if (keyNumber === 16 || keyNumber === 17 || keyNumber === 18) {
     //  Нужно для возможности различить дублирующиеся клавиши;
@@ -143,17 +143,17 @@ window.addEventListener('blur', () => {
 });
 
 document.addEventListener('keydown', (evt) => {
-  if (keyNumberToId(evt.keyCode, evt.location) !== undefined) {
+  if (keyCodeToId(evt.keyCode, evt.location) !== undefined) {
     evt.preventDefault();
-    const keyId = keyNumberToId(evt.keyCode, evt.location);
+    const keyId = keyCodeToId(evt.keyCode, evt.location);
     keyOn(keyId);
   }
 });
 
 document.addEventListener('keyup', (evt) => {
-  if (keyNumberToId(evt.keyCode, evt.location) !== undefined) {
+  if (keyCodeToId(evt.keyCode, evt.location) !== undefined) {
     evt.preventDefault();
-    const keyId = keyNumberToId(evt.keyCode, evt.location);
+    const keyId = keyCodeToId(evt.keyCode, evt.location);
     keyOff(keyId);
   }
 });
